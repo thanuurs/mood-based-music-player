@@ -1,6 +1,6 @@
 # MoodTunes Cactus 🌵🎶
 
-A delightful mood-driven music player featuring an animated dancing cactus that responds to your emotions and generates custom music patterns using Web Audio API.
+I have created a delightful mood-driven music player featuring an animated dancing cactus that responds to your emotions and generates custom music patterns using Web Audio API using AI.
 
 ## Features
 

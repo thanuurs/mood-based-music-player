@@ -1,0 +1,470 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodTunes Cactus 🌵🎶</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'fredoka': ['Fredoka One', 'cursive'],
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'cactus': '#22C55E',
+                        'spotify': '#1DB954',
+                        'sunset': '#F97316',
+                        'mood-purple': '#8B5CF6',
+                        'sky': '#0EA5E9',
+                        'warm-pink': '#EC4899',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'sway': 'sway 3s ease-in-out infinite',
+                        'dance': 'dance 1s ease-in-out infinite alternate',
+                        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        sway: {
+                            '0%, 100%': { transform: 'rotate(-5deg)' },
+                            '50%': { transform: 'rotate(5deg)' }
+                        },
+                        dance: {
+                            '0%': { transform: 'translateY(0px) rotate(-2deg)' },
+                            '100%': { transform: 'translateY(-10px) rotate(2deg)' }
+                        },
+                        'pulse-soft': {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-blue-50 to-purple-100 min-h-screen font-inter transition-all duration-1000" id="app-body">
+    
+    <!-- Header -->
+    <header class="bg-white/80 backdrop-blur-sm border-b border-white/20 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="text-4xl animate-bounce-slow">🌵</div>
+                <div>
+                    <h1 class="text-2xl font-fredoka text-cactus">MoodTunes Cactus</h1>
+                    <p class="text-sm text-gray-600">Your mood, your music, your vibe</p>
+                </div>
+            </div>
+            
+            <!-- Spotify Auth Button -->
+            <button id="spotify-auth-btn" class="bg-spotify hover:bg-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg flex items-center space-x-2" data-implementation="Connect to Spotify OAuth">
+                <i class="fab fa-spotify text-xl"></i>
+                <span>Connect Spotify</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Mood Selection Section -->
+        <section class="mb-12">
+            <h2 class="text-3xl font-fredoka text-center text-gray-800 mb-8">How are you feeling today? 🎭</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-4xl mx-auto">
+                <!-- @MAP: moods.map(mood => ( -->
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-yellow-100 hover:to-orange-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-sunset/20" data-mood="happy" data-event="click:selectMood" data-implementation="Should trigger mood selection and cactus animation change">
+                    <div class="text-4xl mb-2">😊</div>
+                    <div class="font-semibold text-gray-800">Happy</div>
+                    <div class="text-xs text-gray-500">Upbeat & Joyful</div>
+                </button>
+                
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-blue-100 hover:to-indigo-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-sky/20" data-mood="sad" data-event="click:selectMood">
+                    <div class="text-4xl mb-2">😢</div>
+                    <div class="font-semibold text-gray-800">Sad</div>
+                    <div class="text-xs text-gray-500">Melancholy & Reflective</div>
+                </button>
+                
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-red-100 hover:to-pink-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-warm-pink/20" data-mood="energetic" data-event="click:selectMood">
+                    <div class="text-4xl mb-2">⚡</div>
+                    <div class="font-semibold text-gray-800">Energetic</div>
+                    <div class="text-xs text-gray-500">High Energy & Pump Up</div>
+                </button>
+                
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-green-100 hover:to-emerald-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-cactus/20" data-mood="calm" data-event="click:selectMood">
+                    <div class="text-4xl mb-2">🧘</div>
+                    <div class="font-semibold text-gray-800">Calm</div>
+                    <div class="text-xs text-gray-500">Peaceful & Relaxed</div>
+                </button>
+                
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-pink-100 hover:to-rose-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-warm-pink/20" data-mood="romantic" data-event="click:selectMood">
+                    <div class="text-4xl mb-2">💕</div>
+                    <div class="font-semibold text-gray-800">Romantic</div>
+                    <div class="text-xs text-gray-500">Love & Affection</div>
+                </button>
+                
+                <button class="mood-btn bg-white hover:bg-gradient-to-r hover:from-red-100 hover:to-orange-100 p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-red-400/20" data-mood="angry" data-event="click:selectMood">
+                    <div class="text-4xl mb-2">😠</div>
+                    <div class="font-semibold text-gray-800">Angry</div>
+                    <div class="text-xs text-gray-500">Intense & Powerful</div>
+                </button>
+                <!-- @END_MAP )) -->
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            
+            <!-- Dancing Cactus Section -->
+            <div class="lg:col-span-2">
+                <div class="bg-white/70 backdrop-blur-sm rounded-3xl shadow-2xl p-8 text-center relative overflow-hidden">
+                    <!-- Background Effects -->
+                    <div class="absolute inset-0 bg-gradient-to-br from-cactus/5 via-transparent to-sunset/5 rounded-3xl"></div>
+                    <div class="absolute top-4 right-4 text-6xl opacity-10">🎵</div>
+                    <div class="absolute bottom-4 left-4 text-6xl opacity-10">🎶</div>
+                    
+                    <div class="relative z-10">
+                        <h3 class="text-2xl font-fredoka text-gray-800 mb-6">Meet Your Mood Buddy! 🌵</h3>
+                        
+                        <!-- @COMPONENT: DancingCactus [mood, isPlaying] -->
+                        <div class="cactus-container mb-8 relative">
+                            <!-- Dancing Cactus Character -->
+                            <div id="dancing-cactus" class="text-9xl animate-sway transition-all duration-500 inline-block" data-implementation="Should change animation and expression based on selected mood">
+                                🌵
+                            </div>
+                            
+                            <!-- Mood Expression Overlay -->
+                            <div id="cactus-expression" class="absolute -top-4 -right-4 text-4xl transition-all duration-300" data-bind="currentMood.emoji">
+                                😊
+                            </div>
+                            
+                            <!-- Dance Floor Effect -->
+                            <div class="mt-4 flex justify-center space-x-2">
+                                <div class="w-3 h-3 bg-cactus rounded-full animate-pulse"></div>
+                                <div class="w-3 h-3 bg-sunset rounded-full animate-pulse" style="animation-delay: 0.2s;"></div>
+                                <div class="w-3 h-3 bg-mood-purple rounded-full animate-pulse" style="animation-delay: 0.4s;"></div>
+                                <div class="w-3 h-3 bg-sky rounded-full animate-pulse" style="animation-delay: 0.6s;"></div>
+                            </div>
+                        </div>
+                        <!-- @END_COMPONENT: DancingCactus -->
+                        
+                        <!-- Current Mood Display -->
+                        <div id="current-mood-display" class="bg-gradient-to-r from-cactus/10 to-sunset/10 rounded-2xl p-6 mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-2">Current Vibe</h4>
+                            <div class="text-3xl font-fredoka" data-bind="currentMood.name" data-mock="true">Ready to Groove!</div>
+                            <div class="text-sm text-gray-600 mt-2" data-bind="currentMood.description" data-mock="true">Select a mood to start your musical journey</div>
+                        </div>
+                        
+                        <!-- Music Visualization -->
+                        <div class="music-visualizer flex justify-center space-x-1 mb-4" id="music-visualizer" data-implementation="Should show animated bars during music playback">
+                            <div class="w-1 bg-cactus rounded-full animate-pulse-soft" style="height: 20px;"></div>
+                            <div class="w-1 bg-sunset rounded-full animate-pulse-soft" style="height: 35px; animation-delay: 0.1s;"></div>
+                            <div class="w-1 bg-mood-purple rounded-full animate-pulse-soft" style="height: 28px; animation-delay: 0.2s;"></div>
+                            <div class="w-1 bg-sky rounded-full animate-pulse-soft" style="height: 42px; animation-delay: 0.3s;"></div>
+                            <div class="w-1 bg-warm-pink rounded-full animate-pulse-soft" style="height: 18px; animation-delay: 0.4s;"></div>
+                            <div class="w-1 bg-cactus rounded-full animate-pulse-soft" style="height: 38px; animation-delay: 0.5s;"></div>
+                            <div class="w-1 bg-sunset rounded-full animate-pulse-soft" style="height: 25px; animation-delay: 0.6s;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                
+                <!-- Now Playing Card -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-music text-cactus mr-2"></i>
+                        Now Playing
+                    </h3>
+                    
+                    <!-- @COMPONENT: NowPlaying [currentTrack] -->
+                    <div id="now-playing" class="space-y-4" data-implementation="Should display current Spotify track information">
+                        <!-- Album Art -->
+                        <div class="w-full h-48 bg-gradient-to-br from-cactus/20 to-sunset/20 rounded-xl flex items-center justify-center" data-mock-image="true" data-implementation="Display album artwork from Spotify API">
+                            <i class="fas fa-music text-6xl text-gray-400"></i>
+                        </div>
+                        
+                        <!-- Track Info -->
+                        <div data-mock="true">
+                            <div class="font-semibold text-gray-800" data-bind="currentTrack.name">Select a mood to start</div>
+                            <div class="text-sm text-gray-600" data-bind="currentTrack.artist">Your perfect playlist awaits</div>
+                        </div>
+                        
+                        <!-- Progress Bar -->
+                        <div class="w-full bg-gray-200 rounded-full h-2" data-implementation="Should show actual track progress">
+                            <div class="bg-gradient-to-r from-cactus to-sunset h-2 rounded-full w-0 transition-all duration-300" id="progress-bar"></div>
+                        </div>
+                        
+                        <!-- Playback Controls -->
+                        <div class="flex justify-center space-x-4">
+                            <button class="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors" data-event="click:previousTrack">
+                                <i class="fas fa-backward"></i>
+                            </button>
+                            <button class="w-12 h-12 bg-cactus hover:bg-green-600 text-white rounded-full flex items-center justify-center transition-colors" data-event="click:togglePlayback" data-implementation="Should control Spotify playback">
+                                <i class="fas fa-play" id="play-pause-icon"></i>
+                            </button>
+                            <button class="w-10 h-10 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center transition-colors" data-event="click:nextTrack">
+                                <i class="fas fa-forward"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- @END_COMPONENT: NowPlaying -->
+                </div>
+                
+                <!-- Mood History -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-history text-mood-purple mr-2"></i>
+                        Mood History
+                    </h3>
+                    
+                    <!-- @COMPONENT: MoodHistory [moodHistory] -->
+                    <div class="space-y-3" data-implementation="Should track and display user's mood selections with timestamps">
+                        <!-- @MAP: moodHistory.map(entry => ( -->
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg" data-mock="true">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">😊</span>
+                                <div>
+                                    <div class="font-medium text-sm">Happy</div>
+                                    <div class="text-xs text-gray-500" data-bind="entry.timestamp">2 hours ago</div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400" data-bind="entry.songsPlayed">12 songs</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg" data-mock="true">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">🧘</span>
+                                <div>
+                                    <div class="font-medium text-sm">Calm</div>
+                                    <div class="text-xs text-gray-500">Yesterday</div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400">8 songs</div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg" data-mock="true">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-2xl">⚡</span>
+                                <div>
+                                    <div class="font-medium text-sm">Energetic</div>
+                                    <div class="text-xs text-gray-500">2 days ago</div>
+                                </div>
+                            </div>
+                            <div class="text-xs text-gray-400">15 songs</div>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                    <!-- @END_COMPONENT: MoodHistory -->
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-chart-bar text-sky mr-2"></i>
+                        Your Stats
+                    </h3>
+                    
+                    <div class="space-y-3" data-implementation="Should show user statistics from mood and listening data">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Total Sessions</span>
+                            <span class="font-semibold text-cactus" data-bind="stats.totalSessions" data-mock="true">47</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Favorite Mood</span>
+                            <span class="font-semibold text-sunset flex items-center" data-bind="stats.favoriteMood" data-mock="true">
+                                😊 Happy
+                            </span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">Songs Discovered</span>
+                            <span class="font-semibold text-mood-purple" data-bind="stats.songsDiscovered" data-mock="true">234</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/50 backdrop-blur-sm border-t border-white/20 mt-16 py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <span class="text-2xl">🌵</span>
+                <span class="font-fredoka text-lg text-gray-700">MoodTunes Cactus</span>
+                <span class="text-2xl">🎶</span>
+            </div>
+            <p class="text-sm text-gray-600">Your mood, your music, perfectly matched. Powered by Spotify.</p>
+            <div class="mt-4 flex justify-center space-x-6">
+                <a href="#" class="text-gray-500 hover:text-cactus transition-colors">
+                    <i class="fab fa-spotify text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-cactus transition-colors">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-500 hover:text-cactus transition-colors">
+                    <i class="fas fa-heart text-xl"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // TODO: Implement Spotify OAuth authentication and Web Playback SDK integration
+            // TODO: Implement mood-based playlist generation using Spotify Recommendations API
+            // TODO: Implement actual music playback controls and progress tracking
+            // TODO: Implement mood history persistence (localStorage or backend)
+            // TODO: Implement real-time cactus animation changes based on selected mood and music tempo
+
+            // Mood configurations
+            const moods = {
+                happy: {
+                    name: 'Happy',
+                    emoji: '😊',
+                    background: 'from-yellow-100 via-orange-50 to-pink-100',
+                    animation: 'animate-bounce-slow',
+                    description: 'Spreading joy and positive vibes!'
+                },
+                sad: {
+                    name: 'Sad',
+                    emoji: '😢',
+                    background: 'from-blue-100 via-indigo-50 to-purple-100',
+                    animation: 'animate-sway',
+                    description: 'Finding beauty in melancholy moments'
+                },
+                energetic: {
+                    name: 'Energetic',
+                    emoji: '⚡',
+                    background: 'from-red-100 via-orange-50 to-yellow-100',
+                    animation: 'animate-dance',
+                    description: 'Ready to conquer the world!'
+                },
+                calm: {
+                    name: 'Calm',
+                    emoji: '🧘',
+                    background: 'from-green-100 via-emerald-50 to-teal-100',
+                    animation: 'animate-pulse-soft',
+                    description: 'Finding peace in the present moment'
+                },
+                romantic: {
+                    name: 'Romantic',
+                    emoji: '💕',
+                    background: 'from-pink-100 via-rose-50 to-red-100',
+                    animation: 'animate-pulse-soft',
+                    description: 'Love is in the air tonight'
+                },
+                angry: {
+                    name: 'Angry',
+                    emoji: '😠',
+                    background: 'from-red-100 via-orange-50 to-yellow-100',
+                    animation: 'animate-bounce-slow',
+                    description: 'Channel that intensity into power!'
+                }
+            };
+
+            let currentMood = null;
+            
+            // Mood selection handlers
+            const moodButtons = document.querySelectorAll('.mood-btn');
+            const cactus = document.getElementById('dancing-cactus');
+            const expression = document.getElementById('cactus-expression');
+            const body = document.getElementById('app-body');
+            const moodDisplay = document.getElementById('current-mood-display');
+            
+            moodButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const mood = this.dataset.mood;
+                    selectMood(mood);
+                });
+            });
+            
+            function selectMood(moodKey) {
+                currentMood = moods[moodKey];
+                
+                // Update active mood button
+                moodButtons.forEach(btn => btn.classList.remove('ring-4', 'ring-cactus/30'));
+                event.target.closest('.mood-btn').classList.add('ring-4', 'ring-cactus/30');
+                
+                // Update cactus animation and expression
+                cactus.className = `text-9xl ${currentMood.animation} transition-all duration-500 inline-block`;
+                expression.textContent = currentMood.emoji;
+                
+                // Update background
+                body.className = `bg-gradient-to-br ${currentMood.background} min-h-screen font-inter transition-all duration-1000`;
+                
+                // Update mood display
+                const nameElement = moodDisplay.querySelector('[data-bind="currentMood.name"]');
+                const descElement = moodDisplay.querySelector('[data-bind="currentMood.description"]');
+                if (nameElement) nameElement.textContent = currentMood.name;
+                if (descElement) descElement.textContent = currentMood.description;
+                
+                // Simulate playlist loading and start "playback"
+                simulatePlayback();
+            }
+            
+            function simulatePlayback() {
+                // Simulate track loading
+                const nowPlaying = document.getElementById('now-playing');
+                const trackName = nowPlaying.querySelector('[data-bind="currentTrack.name"]');
+                const artistName = nowPlaying.querySelector('[data-bind="currentTrack.artist"]');
+                const playIcon = document.getElementById('play-pause-icon');
+                const progressBar = document.getElementById('progress-bar');
+                
+                // Mock track info based on mood
+                const mockTracks = {
+                    happy: { name: 'Good Vibes Only', artist: 'Sunshine Collective' },
+                    sad: { name: 'Melancholy Dreams', artist: 'Blue Note Society' },
+                    energetic: { name: 'Power Surge', artist: 'Electric Thunder' },
+                    calm: { name: 'Peaceful Waters', artist: 'Zen Garden' },
+                    romantic: { name: 'Love Letters', artist: 'Heartstring Duo' },
+                    angry: { name: 'Breaking Chains', artist: 'Rebel Storm' }
+                };
+                
+                const moodKey = Object.keys(moods).find(key => moods[key] === currentMood);
+                const track = mockTracks[moodKey] || mockTracks.happy;
+                
+                if (trackName) trackName.textContent = track.name;
+                if (artistName) artistName.textContent = track.artist;
+                if (playIcon) playIcon.className = 'fas fa-pause';
+                
+                // Animate progress bar
+                if (progressBar) {
+                    progressBar.style.width = '0%';
+                    setTimeout(() => {
+                        progressBar.style.width = '100%';
+                        progressBar.style.transition = 'width 180s linear';
+                    }, 100);
+                }
+            }
+            
+            // Playback controls (mock functionality)
+            const playPauseBtn = document.querySelector('[data-event="click:togglePlayback"]');
+            if (playPauseBtn) {
+                playPauseBtn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('fa-play')) {
+                        icon.className = 'fas fa-pause';
+                    } else {
+                        icon.className = 'fas fa-play';
+                    }
+                });
+            }
+            
+            // Initialize with a default happy mood after a short delay
+            setTimeout(() => {
+                if (!currentMood) {
+                    selectMood('happy');
+                    moodButtons[0].classList.add('ring-4', 'ring-cactus/30');
+                }
+            }, 1000);
+            
+        })();
+    </script>
+</body>
+</html>

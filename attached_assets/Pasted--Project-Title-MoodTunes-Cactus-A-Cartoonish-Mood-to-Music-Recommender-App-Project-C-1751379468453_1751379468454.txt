@@ -1,0 +1,65 @@
+*Project Title: “MoodTunes Cactus” – A Cartoonish Mood-to-Music Recommender App*  
+
+### 🔥 Project Concept
+An interactive web app that detects or lets the user select a mood (e.g. Happy, Sad, Angry, Chill) and instantly plays a curated Spotify playlist. The centerpiece is a *dancing animated cactus* that changes facial expressions and dance moves based on the selected mood.
+
+---
+
+### 🧠 Core Features
+
+#### 🎧 Mood Detection & Selection
+- *Option 1:* Let users type a short journal-style sentence (ML-based emotion detection via Hugging Face API).
+- *Option 2:* Let users choose from pre-set moods (Happy, Sad, Energetic, Calm, Romantic, Angry).
+
+#### 🌈 Spotify Integration
+- Authenticate via *Spotify Web Playback SDK* + OAuth.
+- Fetch playlists using *Spotify’s “recommendations” API* filtered by mood-based seed parameters (energy, valence, tempo).
+- Autoplay tracks on mood selection.
+
+#### 🌵 Dynamic Cartoon UI (with Canvas or Lottie)
+- Use *Lottie animations* or CSS/JS canvas to show a *cartoon cactus*:
+  - Happy: Wide smile, disco dance
+  - Sad: Droopy arms, slow swaying
+  - Angry: Fire aura and stomping feet
+  - Chill: Sway with sunglasses
+- Background color and music visualization synced to the song’s tempo and energy.
+
+#### 🎛 Bonus UX Features
+- Progress bar shows how long a mood “vibe” session lasts.
+- Mood history timeline.
+- Easter egg dances for special moods like “In love” or “Exam stress.”
+
+---
+
+### 🧑‍💻 Tech Stack
+
+| Component         | Tech                                   |
+|------------------|----------------------------------------|
+| Frontend         | HTML, CSS, JavaScript (React optional) |
+| Animation        | [LottieFiles](https://lottiefiles.com/) or Canvas API   |
+| ML Sentiment     | Hugging Face Transformers (via API or local model) |
+| Backend (if needed) | Node.js or Python Flask               |
+| Spotify API      | OAuth + Spotify Web Playback + Browse API |
+| Hosting          | [Replit](https://replit.com/) with Secrets for tokens |
+
+---
+
+### 💡 Replit Project Prompt (for your README or submission)
+
+markdown
+# MoodTunes Cactus 🌵🎶
+
+## Description
+A cheerful, mood-driven music player powered by Spotify and animated with a dancing cactus. Select or detect your mood—watch the cactus groove to your vibe while curated Spotify songs play in the background.
+
+## Features
+- Mood-based music recommendations
+- Sentiment detection from text input
+- Interactive UI with animated cartoon visuals
+- Spotify song playback and playlist generation
+- Mood-based emoji + animation dynamics
+
+## How It Works
+1. Choose a mood or type a feeling.
+2. Cactus dances while Spotify auto-plays mood-matched tracks.
+3. Mood visuals and dance change with the vibes.
